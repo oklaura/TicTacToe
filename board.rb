@@ -57,7 +57,7 @@ class Board
 
     def win_row?(mark)
         @board.any? do |row|
-            @board.all? {|space| space == mark }
+            row.all? {|space| space == mark }
         end
     end
 
