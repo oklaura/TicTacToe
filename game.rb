@@ -28,7 +28,7 @@ class Game
                 puts "Game Over - #{@current_player.mark} wins!"
                 return
             else
-                self.switch_turn
+                self.switch_turn if @board.mark_placed?(position, @current_player.mark)
             end
         end
 

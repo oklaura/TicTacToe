@@ -38,6 +38,17 @@ class Board
         end
     end
 
+    def mark_placed?(position, mark)
+        x = position[0]
+        y = position[1]
+        if @board[x][y] == mark
+            return true
+        else
+            return false
+        end
+
+    end
+
     def print
         @board.each do |row|
             puts "|" + row.join('|') + "|"
