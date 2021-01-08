@@ -3,50 +3,40 @@ class Board
         @board = Array.new(3) {Array.new(3, '_')}
     end
 
-    def valid?(position)
-
-        indices = []
-        
-        (0..2).each do |i1|
-            (0..2).each do |i2|
-                indices << [i1, i2]
-            end
-        end
-
-        indices.include?(position)
+    def [](pos)
+        row, col = pos
+        @board[row][col]
     end
 
-    def empty?(position)
-        x = position[0]
-        y = position[1]
-        @board[x][y] == '_'
+    def []=(pos, val)
+        row, col = pos 
+        @board[row][col] = val
     end
 
+    def valid?(pos)
+        row, col = pos
 
-    def place_mark(position, mark)
-        if valid?(position) == false 
-            puts "invalid position" 
-        end
-        if empty?(position) == false
-            puts "position taken" 
-        end
-
-        if valid?(position) && empty?(position)
-            x = position[0]
-            y = position[1]
-            @board[x][y] = mark
+        pos.all? do |i|
+            0 <= i && i < @board.length
         end
     end
 
-    def mark_placed?(position, mark)
-        x = position[0]
-        y = position[1]
-        if @board[x][y] == mark
-            return true
+    def empty?(pos)
+        self[pos] == '_'
+    end
+
+
+    def place_mark(pos, mark)
+        if valid?(pos) && empty?(pos)
+            self[pos] = mark 
         else
-            return false
+            puts "invalid position"
         end
+    end
 
+    def mark_placed?(pos, mark)
+        row, col = pos 
+        self[pos] == mark
     end
 
     def print

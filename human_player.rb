@@ -10,10 +10,9 @@ class HumanPlayer
         puts "Player #{@mark}-"
         puts "Enter two numbers representing row(1-3) and column(1-3)"
         puts "in the format 'row col' i.e. 1 2"
-        position = gets.chomp.split(" ")
-        position.map! {|num| num.to_i - 1}
-        raise "invalid position" if position.length != 2
-        position
+        pos = gets.chomp.split(" ").map(&:to_i)
+        raise "invalid position" if pos.length != 2
+        pos
     end
 
 end
