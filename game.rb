@@ -1,11 +1,12 @@
 require_relative "./board.rb"
 require_relative "./human_player.rb"
+require_relative "./computer_player.rb"
 
 class Game
 
     def initialize(mark_1, mark_2)
         @player1 = HumanPlayer.new(mark_1)
-        @player2 = HumanPlayer.new(mark_2)
+        @player2 = ComputerPlayer.new(mark_2)
         @board = Board.new
         @current_player = @player1
     end
@@ -19,19 +20,28 @@ class Game
     end
 
     def play
+        puts "LET'S PLAY"
+        puts "- TIC TAC TOE -"
+        puts
         while @board.empty_positions?
             @board.print 
-            position = @current_player.get_position
+            position = @current_player.get_position(@board.available_pos)
             @board.place_mark(position, @current_player.mark)
 
             if @board.win?(@current_player.mark)
-                puts "Game Over - #{@current_player.mark} wins!"
+                @board.print
+                if @current_player.is_a?(ComputerPlayer)
+                puts "Game Over - You Lose :("
+                else
+                puts "Game Over - You Win!"
+                end
                 return
             else
                 self.switch_turn if @board.mark_placed?(position, @current_player.mark)
             end
         end
 
+        @board.print
         puts "Game Over - DRAW"
 
     end

@@ -43,6 +43,7 @@ class Board
         @board.each do |row|
             puts "|" + row.join('|') + "|"
         end
+        puts " "
     end
 
     def win_row?(mark)
@@ -89,6 +90,16 @@ class Board
         end
 
         return false
+    end
+
+    def available_pos
+        arr = []
+        (0...@board.length).each do |i1|
+            (0...@board.length).each do |i2|
+                arr << [i1, i2]
+            end
+        end
+        arr.select {|space| empty?(space)}
     end
 
 end
